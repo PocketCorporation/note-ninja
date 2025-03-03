@@ -18,3 +18,18 @@ export async function addNote(content: string):Promise<Note>{
 
     return note
 }
+
+export async function getNotes(): Promise<Note[]> {
+    const response = await databases.listDocuments(
+        'notesNinja',
+        'notes',
+    )
+    console.log(response.documents)
+
+    const notes: Note[] = response.documents.map(document=>({
+        $id: document.$id,
+        $createdAt: document.$createdAt,
+        content: document.content
+    }))
+    return notes
+}
