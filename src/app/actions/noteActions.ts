@@ -33,3 +33,11 @@ export async function getNotes(): Promise<Note[]> {
     }))
     return notes
 }
+
+export async function deleteNote(noteId: string) {
+    await databases.deleteDocument(
+        'notesNinja',
+        'notes',
+        noteId
+    )
+}
